@@ -1,0 +1,24 @@
+{
+  "name": "reviews-questions",
+  "version": "1.0.0",
+  "description": "JSON File for HR FEC Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/team-plum/reviews-questions.git"
+  },
+  "author": "ianlennymatthews",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/team-plum/reviews-questions/issues"
+  },
+  "homepage": "https://github.com/team-plum/reviews-questions#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "faker": "^4.1.0",
+    "sqlite": "^3.0.3"
+  }
+}
