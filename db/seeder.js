@@ -1,69 +1,89 @@
 const faker = require('faker');
 const { db } = require('./index.js');
 
-var getResID = `SELECT rID FROM Restaurants WHERE name = ?`;
-var getQesID = `SELECT qID FROM Questions WHERE text = ?`;
+let data = [];
+let ques = [];
 
-for (var i = 0; i < 100; i++) {
-  var restaurantName = faker.company.companyName();
+let insertRestaurants = new Promise((resolve, reject) => {
+  console.log('1');
+  for (var i = 0; i < 100; i++) {
+    var restaurantName = faker.company.companyName();
+    var insertResQuery = `INSERT INTO Restaurants (name) VALUES ("${restaurantName}")`;
 
-  var insertResQuery = `INSERT INTO Restaurants (name) VALUES ('${restaurantName}')`;
+    db.run(insertResQuery, err => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve('Restaurants Created');
+      }
+    });
+  }
+});
 
-  db.run(insertResQuery, (err, response) => {
-    if (err) {
-      console.log('Error inserting:', err);
-    } else {
-      console.log('successfully inserted restaurant');
+let pickRestaurants = new Promise((resolve, reject) => {
+  console.log('2');
+  for (var j = 0; j < 100; j++) {
+    var resIndex = Math.floor(Math.random() * 101);
+    if (data.indexOf(resIndex) === -1) {
+      data.push(resIndex);
+    }
+  }
+  resolve('Success picking indexes');
+});
 
-      db.get(getResID, restaurantName, (err, data) => {
+let populateQuestions = new Promise((resolve, reject) => {
+  console.log('3');
+  for (var k = 0; k < data.length; k++) {
+    ques.push(k);
+
+    let questionCount = Math.floor(Math.random() * 5);
+
+    for (var l = 0; l < questionCount; l++) {
+      var question = JSON.stringify(faker.random.words() + '?');
+      var insertResQuest = `INSERT INTO Questions (resID, text) VALUES ('${
+        data[k]
+      }' , '${question}')`;
+      db.run(insertResQuest, err => {
         if (err) {
-          console.log('Error getting resID: ', err);
+          console.log('Error inserting question: ');
+          reject(err);
         } else {
-          var questionCount = Math.floor(Math.random() * 5);
-
-          for (var j = 0; j < questionCount; j++) {
-            var question = faker.random.words() + '?';
-
-            var insertResQuest = `INSERT INTO Questions (resID, text) VALUES ( '${
-              data.rID
-            }' , '${question}')`;
-
-            db.run(insertResQuest, (err, response) => {
-              if (err) {
-                console.log('Error inserting restaurant question : ', err);
-              } else {
-                console.log('Restaurant Question Inserted ');
-
-                db.get(getQesID, question, (err, dataQ) => {
-                  if (err) {
-                    console.log('Error getting question ID: ', err);
-                  } else {
-                    var answerCount = Math.floor(Math.random() * 5);
-
-                    for (var k = 0; k < answerCount; k++) {
-                      var answer = faker.random.words();
-                      var insertQuesAns = `INSERT INTO Answers (aID, text) VALUES ('${
-                        dataQ.qID
-                      }' , '${answer}')`;
-
-                      db.run(insertQuesAns, (err, response) => {
-                        if (err) {
-                          console.log(
-                            'Error inserting Answer for question: ',
-                            err
-                          );
-                        } else {
-                          console.log('Answer for question inserted');
-                        }
-                      });
-                    }
-                  }
-                });
-              }
-            });
-          }
+          resolve('Question successfully inserted');
         }
       });
     }
+  }
+});
+
+let pickQuestions = new Promise((resolve, reject) => {
+  for (var m = 0; m < ques.length; m++) {
+    if (ques[m] > 0) {
+      let answerCount = Math.floor(Math.random() * 5);
+
+      for (var n = 0; n < answerCount; n++) {
+        var answer = JSON.stringify(faker.random.words());
+        var insertQuesAns = `INSERT INTO Answers (aID, text) VALUES ('${
+          ques[m]
+        }' , '${answer}')`;
+
+        db.run(insertQuesAns, err => {
+          if (err) {
+            console.log('ERRROR ', +err);
+            reject(err);
+          } else {
+            resolve('SUCCESS');
+          }
+        });
+      }
+    }
+  }
+});
+
+insertRestaurants
+  .then(pickRestaurants)
+  .then(populateQuestions)
+  .then(pickQuestions)
+  .then(console.log('COMPLETED SEEDING'))
+  .catch(err => {
+    console.log(err);
   });
-}
