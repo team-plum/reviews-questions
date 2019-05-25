@@ -17,7 +17,8 @@
   },
   "homepage": "https://github.com/team-plum/reviews-questions#readme",
   "dependencies": {
-    "express": "^4.16.4",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.0",
     "faker": "^4.1.0",
     "sqlite": "^3.0.3"
   }
