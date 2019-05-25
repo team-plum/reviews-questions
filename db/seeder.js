@@ -5,7 +5,7 @@ let data = [];
 let ques = [];
 
 let insertRestaurants = new Promise((resolve, reject) => {
-  console.log('1');
+  //console.log('1');
   for (var i = 0; i < 100; i++) {
     var restaurantName = faker.company.companyName();
     var insertResQuery = `INSERT INTO Restaurants (name) VALUES ("${restaurantName}")`;
@@ -21,7 +21,7 @@ let insertRestaurants = new Promise((resolve, reject) => {
 });
 
 let pickRestaurants = new Promise((resolve, reject) => {
-  console.log('2');
+  // console.log('2');
   for (var j = 0; j < 100; j++) {
     var resIndex = Math.floor(Math.random() * 101);
     if (data.indexOf(resIndex) === -1) {
@@ -32,7 +32,7 @@ let pickRestaurants = new Promise((resolve, reject) => {
 });
 
 let populateQuestions = new Promise((resolve, reject) => {
-  console.log('3');
+  //console.log('3');
   for (var k = 0; k < data.length; k++) {
     ques.push(k);
 

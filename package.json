@@ -4,7 +4,7 @@
   "description": "JSON File for HR FEC Project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "db:setup": "node db/index.js && node db/schema.js && node db/seeder.js"
   },
   "repository": {
     "type": "git",
