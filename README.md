@@ -1,6 +1,6 @@
 # reviews-questions
 
-Foobar is a Python library for dealing with word pluralization.
+Reviews-Questions is a TODO:
 
 ## Installation
 
