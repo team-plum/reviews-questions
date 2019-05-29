@@ -12,14 +12,26 @@ const createRestaurants = `CREATE TABLE Restaurants (
   )`;
 
 const createQuestions = `CREATE TABLE Questions (
-    qID INTEGER PRIMARY KEY AUTOINCREMENT ,
+    qID INTEGER PRIMARY KEY AUTOINCREMENT,
     text VARCHAR NOT NULL DEFAULT NULL,
+    name VARCHAR NOT NULL DEFAULT NULL,
+    time VARCHAR NOT NULL DEFAULT NULL,
+    imgUrl VARCHAR NOT NULL DEFAULT NULL,
+    helpful INTEGER NOT NULL DEFAULT NULL,
     resID INT NOT NULL DEFAULT NULL,
+
+
+
     FOREIGN KEY (resID) REFERENCES Restaurants (rID))`;
 
 const createAnswers = `CREATE TABLE Answers (
     aID INTEGER,
     text VARCHAR NOT NULL DEFAULT NULL,
+    name VARCHAR NOT NULL DEFAULT NULL,
+    time VARCHAR NOT NULL DEFAULT NULL,
+    imgUrl VARCHAR NOT NULL DEFAULT NULL,
+    stars INTEGER NOT NULL DEFAULT NULL,
+    friendCount INTEGER NOT NULL DEFAULT NULL,
     FOREIGN KEY (aID) REFERENCES Questions (qID))`;
 
 db.run(createRestaurants, (err, response) => {

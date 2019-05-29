@@ -8,7 +8,7 @@ const { db } = require('./index.js');
 // Post: Object
 function getQandA(id, callback) {
   let results = {};
-  results['name'] = '';
+  results['resName'] = '';
   results['questions'] = [];
   results['answers'] = [];
   let ids = '';
@@ -23,10 +23,11 @@ function getQandA(id, callback) {
       callback(err);
     } else {
       //console.log('Obtained Restaurant Name : ', data.Name);
-      results['name'] = data.Name;
+      results['resName'] = data.Name;
       db.serialize(() => {
         db.serialize(() => {
-          let quesIdQuery = 'SELECT qID, text FROM Questions WHERE resID = ?';
+          let quesIdQuery =
+            'SELECT qID, text, name, time, imgUrl FROM Questions WHERE resID = ?';
           db.all(quesIdQuery, [id], (err, data) => {
             if (err) {
               console.log(
@@ -44,7 +45,7 @@ function getQandA(id, callback) {
 
               //console.log(ids);
 
-              let ansIdQuery = `SELECT aId , text FROM ANSWERS WHERE aID in (${ids})`;
+              let ansIdQuery = `SELECT aId, text, name, time, imgURL, stars, friendCount FROM ANSWERS WHERE aID in (${ids})`;
               db.all(ansIdQuery, (err, data) => {
                 if (err) {
                   console.log(
