@@ -8,7 +8,7 @@ const PORT = 3009;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// TODO: Allow express to serve static files
+app.use(express.static(__dirname + '/../client/dist'));
 
 app.get('/api/questions/:num', (req, res) => {
   //Assuming that :num is a Number

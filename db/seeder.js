@@ -68,7 +68,7 @@ let pickQuestions = new Promise((resolve, reject) => {
 
         db.run(insertQuesAns, err => {
           if (err) {
-            console.log('ERRROR ', +err);
+            console.log('ERROR ', err);
             reject(err);
           } else {
             resolve('SUCCESS');
