@@ -4,7 +4,7 @@
   "description": "JSON File for HR FEC Project",
   "main": "index.js",
   "scripts": {
-    "db:setup": "node /db/index.js && node /db/schema.js && node /db/seeder.js",
+    "db:setup": "node db/index.js && node db/schema.js && node db/seeder.js",
     "react:dev": "webpack -d --watch",
     "server:dev": "nodemon server/index.js"
   },
@@ -28,6 +28,7 @@
     "bootstrap": "^4.3.1",
     "express": "^4.17.0",
     "faker": "^4.1.0",
+    "moment": "^2.24.0",
     "nodemon": "^1.19.1",
     "react": "^16.8.6",
     "react-bootstrap": "^1.0.0-beta.8",

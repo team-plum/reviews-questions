@@ -11,7 +11,11 @@ import axios from 'axios';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      name: '',
+      questions: [],
+      answers: []
+    };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -28,11 +32,15 @@ class App extends React.Component {
     axios
       .get('/api/questions/' + num)
       .then(data => {
-        console.log(data);
         //SET STATE
+        this.setState({
+          name: data.data.resName,
+          questions: data.data.questions,
+          answers: data.data.answers
+        });
       })
       .catch(err => {
-        console.log('Error: ', error);
+        console.log('Error: ', err);
       });
   }
 
@@ -48,7 +56,7 @@ class App extends React.Component {
             <ListGroup.Item>Morbi leo risus</ListGroup.Item>
             <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
           </ListGroup> */}
-          {/* <Input handleSubmit={this.handleSubmit} /> */}
+          {/* <Input handleSubmit={this.handleSubmit} name={this.state.name} /> */}
           <QuestionsView />
         </Card>
       </div>

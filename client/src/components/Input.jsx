@@ -15,7 +15,9 @@ class Input extends React.Component {
         <Form.Control
           size="lg"
           type="text"
-          placeholder="What would you like users to know about RESTAURANT NAME ?"
+          placeholder={`What would you like users to know about ${
+            this.props.name
+          }?`}
           ref={this.textInput}
         />
         <br />
