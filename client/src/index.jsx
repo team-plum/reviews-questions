@@ -34,10 +34,12 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    //set random integer && ToString to add to endpoint
-    let num = Math.floor(Math.random() * 100 + 1) + '';
+    let base = window.location.pathname;
+    let arr = base.split('/');
+    let id = arr[1];
+
     axios
-      .get('/api/questions/' + num)
+      .get(`/api/questions/${id}`)
       .then(data => {
         console.log(data);
         this.setState({
