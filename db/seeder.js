@@ -39,11 +39,11 @@ let populateQuestions = new Promise((resolve, reject) => {
     let questionCount = Math.floor(Math.random() * 5);
     let helpfulCount = Math.floor(Math.random() * 4);
     let time = JSON.stringify(faker.date.past(5));
-    let avatar = faker.image.avatar();
     let name = faker.name.findName().replace(/\'/g, "''");
 
     for (let l = 0; l < questionCount; l++) {
       let question = faker.random.words() + '?'.replace(/\'/g, "''");
+      let avatar = faker.image.avatar();
       let insertResQuest = `INSERT INTO Questions (resID, text, time, helpful, imgUrl , name) VALUES ('${
         data[k]
       }' , '${question}' , '${time}' , '${helpfulCount}' , '${avatar}' , '${name}')`;

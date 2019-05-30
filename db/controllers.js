@@ -27,7 +27,7 @@ function getQandA(id, callback) {
       db.serialize(() => {
         db.serialize(() => {
           let quesIdQuery =
-            'SELECT qID, text, name, time, imgUrl FROM Questions WHERE resID = ?';
+            'SELECT qID, text, name, time, imgUrl, helpful FROM Questions WHERE resID = ?';
           db.all(quesIdQuery, [id], (err, data) => {
             if (err) {
               console.log(

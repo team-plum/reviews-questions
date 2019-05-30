@@ -1,9 +1,9 @@
 import React from 'react';
-const moment = require('moment');
 
 import Media from 'react-bootstrap/Media';
 
 import Answer from '../components/Answer.jsx';
+const moment = require('moment');
 
 class QuestionsView extends React.Component {
   constructor(props) {
@@ -11,21 +11,35 @@ class QuestionsView extends React.Component {
   }
 
   render() {
-    return (
-      <Media>
-        <img
-          width={30}
-          height={33}
-          className="mr-3"
-          src="https://images.dog.ceo/breeds/samoyed/n02111889_691.jpg"
-        />
-        <Media.Body>
-          <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus</p>
-          <small>TIME HERE</small>
-          <Answer />
-        </Media.Body>
-      </Media>
-    );
+    {
+      return this.props.questions.map((item, i) => {
+        let answers = [];
+        for (var answer of this.props.answers) {
+          if (item.qID !== undefined) {
+            if (answer.aID === item.qID) {
+              answers.push(<Answer answer={answer} />);
+            }
+          }
+        }
+        return (
+          <Media key={i}>
+            <img width={30} height={33} className="mr-3" src={item.imgUrl} />
+            <Media.Body>
+              <p>{item.text}</p>
+              <small style={{ color: 'gray' }}>
+                {item.helpful + ' people found this helpful'}
+              </small>
+              <br />
+              <small style={{ color: 'gray' }}>
+                {moment(JSON.parse(item.time)).fromNow()}
+              </small>
+              <br />
+              {answers}
+            </Media.Body>
+          </Media>
+        );
+      });
+    }
   }
 }
 
