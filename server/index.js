@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const path = require('path');
 const { getQandA } = require('../db/controllers.js');
 
 const app = express();
@@ -8,7 +9,8 @@ const PORT = 3009;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(express.static(__dirname + '/../client/dist'));
+app.use('/:id', express.static(path.join(__dirname, '/../client/dist')));
+app.use('/', express.static(path.join(__dirname, '/../client/dist')));
 
 app.get('/api/questions/:num', (req, res) => {
   //Assuming that :num is a Number
